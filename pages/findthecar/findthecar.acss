@@ -1,0 +1,71 @@
+.main{
+  width: 100%;
+  height: 1108rpx;
+  font-family: '苹方';
+  /* background-color:#efeff0; */
+}
+.head{
+  width: 100%;
+  height: 84rpx;
+  color: #333333;
+  text-align: center;
+  line-height: 84rpx;
+  font-size: 24rpx;
+  border-bottom: 1px solid #e8e8e8;
+  /* background-color: #f8f8f8; */
+}
+.info{
+  width: 100%;
+  height: 152rpx;
+}
+.info_left,.info_right{
+  width: 375rpx;
+  height: 100%;
+  font-size: 36rpx;
+  color: #333333;
+  float: left;
+  /* background-color: #FF9AFF; */
+}
+.info_left_top,.info_right_top{
+  width: 100%;
+  height: 76rpx;
+  text-align: center;
+  line-height: 114rpx;
+  /* background-color: #909; */
+}
+.info_left_bottom,.info_right_bottom{
+  width: 100%;
+  height: 36rpx;
+  color: #a1a1a1;
+  text-align: center;
+}
+.map_bg,.map{
+  width: 100%;
+  height: 876rpx;
+  position: relative;
+  /* background-color: #909; */
+}
+.map_btn{
+width: 100%;
+height: 90rpx;
+position: fixed;
+bottom: 20rpx;
+/* background-color: #909; */
+}
+.guide,.findcar{
+  width: 300rpx;
+  height: 100%;
+  border-radius: 8rpx;
+  color: #ffffff;
+  font-size: 32rpx;
+}
+.guide{
+  float: left;
+  margin-left: 32rpx;
+  background-color: #169bd5;
+}
+.findcar{
+  float: right;
+  margin-right: 32rpx;
+  background-color: #ffad27;
+}

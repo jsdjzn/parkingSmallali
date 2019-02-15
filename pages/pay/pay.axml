@@ -1,0 +1,2 @@
+<text>您需要支付{{money/100}}元</text>
+<button>支付</button>

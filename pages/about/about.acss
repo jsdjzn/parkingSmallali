@@ -1,0 +1,50 @@
+page{
+  background:#f2f2f2;
+}
+.main{
+  background-color:#f2f2f2;
+}
+
+.title_{
+font-size: 1rem;
+vertical-align:middle;
+padding: 0px;
+height:45px;
+text-align:center;
+display: table-cell;
+}
+
+.detail{
+  font-size: 0.7rem;
+  line-height: 1.5em;
+}
+
+.logo {
+  width: 50%;
+  height: 128rpx;
+  margin-left: 25%;
+  margin-top: 5%;
+}
+
+.logo_out{
+  height: 220rpx;
+}
+.content_{
+  width: 100%;
+  background-color: white;
+}
+
+.content_title{
+  width: 85%;
+  height: 90rpx;
+  padding: 0px 27px 0px 27px;
+}
+
+.content_detail{
+  width: 85%;
+  padding: 0px 27px 20px 27px;
+}
+
+.space{
+height: 40rpx;
+}

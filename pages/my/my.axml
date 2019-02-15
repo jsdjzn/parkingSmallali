@@ -1,0 +1,4 @@
+<form bindsubmit='payBill'>
+<input name="plate" type="text" placeholder="请输入车牌号"  value=""></input>
+<button form-type="submit"> 缴费</button>
+</form>

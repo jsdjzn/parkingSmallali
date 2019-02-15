@@ -1,0 +1,21 @@
+<view class="main">
+  <view class="banner_out">
+    <image class="banner" src="{{banner}}"></image>
+  </view>
+
+  <view class="content_" >
+    <view class='content_numbers'>
+        <view class='content_numbers_view'>
+            <image class='img' src='{{carnumber}}'></image>
+            <view class='numbers'>
+            <text >苏A 9635N</text>
+            </view>
+        </view>
+    </view>
+
+    <view class='content_pay'>
+        <button class='pay_btn'>开通免密支付</button>
+        <button class='delete_btn'>删除车辆</button>
+    </view>
+  </view>
+</view>

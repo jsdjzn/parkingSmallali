@@ -1,0 +1,42 @@
+<view class="main">
+      <view a:if="{{isHide && canIUse}}">
+      <view class='header'>
+            <image src='../../img/wx_login.png'></image>
+        </view>
+
+        <view class='content'>
+            <view>申请获取以下权限</view>
+            <text>获得您的公开信息(昵称，头像等)</text>
+        </view>
+
+        <button class='bottom' type='primary' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">
+            授权登录
+        </button>
+      </view>
+  <view class="userinfo" a:else>
+      <view class="banner_out">
+    <image class="banner" src="{{banner}}"></image>
+  </view>
+  <view class="content_" >
+    <view class='content_hint'>
+      <text class='hint'>请输入车牌</text>
+    </view>
+    <view class='content_number'>
+      <textarea class='number' id='one' maxlength='1' cursor-spacing='200rpx'>苏</textarea>
+      <textarea class='number' id='two' maxlength='1' cursor-spacing='200rpx'></textarea>
+      <textarea class='number' id='three' maxlength='1' cursor-spacing='200rpx'></textarea>
+      <textarea class='number' id='four' maxlength='1' cursor-spacing='200rpx'></textarea>
+      <textarea class='number' id='five' maxlength='1' cursor-spacing='200rpx'></textarea>
+      <textarea class='number' id='six' maxlength='1' cursor-spacing='200rpx'></textarea>
+      <textarea class='number' id='seven' maxlength='1' cursor-spacing='200rpx'></textarea>
+    </view>
+    <view class='content_tips'>
+    <text>请确保车牌号真实有效</text>
+    </view>
+    <view class='content_button'>
+    <button class='btn' bindtap='jumpPlatenumbers'>确定</button>
+    </view>
+    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机号</button>
+  </view>
+  </view>
+</view>

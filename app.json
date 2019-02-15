@@ -1,0 +1,47 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/findthecar/findthecar",
+    "pages/platenumbers/platenumbers",
+    "pages/about/about",
+    "pages/logs/logs",
+    "pages/pay/pay",
+    "pages/my/my"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "鼎集智慧停车",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#31A1D1",
+    "list": [
+      {
+        "pagePath": "pages/platenumbers/platenumbers",
+        "text": "我 的",
+        "iconPath": "/img/我的.png",
+        "selectedIconPath": "/img/我的选中.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "缴费记录",
+        "iconPath": "/img/缴费记录.png",
+        "selectedIconPath": "/img/缴费记录选中.png"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "text": "预 约",
+        "iconPath": "/img/预约.png",
+        "selectedIconPath": "/img/预约选中.png"
+      },
+      {
+        "pagePath": "pages/findthecar/findthecar",
+        "text": "停车寻车",
+        "iconPath": "/img/停车寻车.png",
+        "selectedIconPath": "/img/停车寻车选中.png"
+      }
+    ]
+  }
+}

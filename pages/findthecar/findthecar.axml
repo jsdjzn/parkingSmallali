@@ -1,0 +1,31 @@
+<view class='main'>
+    <view class='head'>
+        <text>车牌：</text>
+        <text class='platenumbers'>苏A 8N888</text>
+    </view>
+    <view class='info'>
+        <view class='info_left'>
+            <view class='info_left_top'>
+            <text class='info_left_goto'>A0001</text>
+            </view>
+            <view  class='info_left_bottom'>
+            <text class='tips'>您的车位</text>
+            </view>
+        </view>
+        <view class='info_right'>
+            <view class='info_right_top'>
+            <text class='info_right_goto'>B0011</text>
+            </view>
+            <view  class='info_right_bottom'>
+            <text class='tips'>您所在位置</text>
+            </view>
+        </view>
+    </view>
+    <view class='map_bg'>
+        <image class='map' src='../../img/findthecar/map.png'></image>
+        <view class='map_btn'>
+          <button class='guide'>引导</button>
+          <button class='findcar'>寻车</button>
+        </view>
+    </view>
+</view>
