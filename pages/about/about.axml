@@ -10,7 +10,7 @@
 
 <view class="content_" >
 <view class="content_title" ><text class="title_">企业文化</text></view>
-<view class="content_title" ><text class="title_">经营理念：为客户创造价值。</text></view>
+<view class="content_title" ><text class="title_">经营理念:为客户创造价值。</text></view>
 <view class="content_detail" ><text class="detail">内涵诠释：满足客户需求，超越客户期望。客户的需求，是我们行动的指南；客户的抱怨，是我们改进的方向；客户的满意，是我们追求的目标；客户的价值，是我们利益的基点。</text></view>
 </view>
 

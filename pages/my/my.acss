@@ -1,4 +1,4 @@
-.pay_btn{
+.pay{
   color: #ffffff;
   font-size: 32rpx;
   background-color: #169bd5;

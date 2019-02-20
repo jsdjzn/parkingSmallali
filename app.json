@@ -1,12 +1,14 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/logs/logs",
+    "pages/my/my",
+    "pages/pay/pay",
     "pages/findthecar/findthecar",
     "pages/platenumbers/platenumbers",
     "pages/about/about",
-    "pages/logs/logs",
-    "pages/pay/pay",
-    "pages/my/my"
+    "pages/findthecar/findthecar",
+    "pages/logs/logs" 
   ],
   "window":{
     "backgroundTextStyle":"light",

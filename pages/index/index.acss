@@ -35,7 +35,7 @@ height: 300rpx;
 .number{
   width: 68rpx;
   height: 68rpx;
-  border: 2rpx solid #333333;
+  border: 2rpx solid #333333;                                                        
   float: left;
   color: #333333;
   font-size: 48rpx;
@@ -56,7 +56,7 @@ margin-right: 32rpx;
 .content_button{
   width: 100%;
   height: 90rpx;
-  padding-right: 32rpx;
+  padding-left: 32rpx;
 }
 .btn{
   width: 686rpx;

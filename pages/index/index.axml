@@ -22,7 +22,7 @@
       <text class='hint'>请输入车牌</text>
     </view>
     <view class='content_number'>
-      <textarea class='number' id='one' maxlength='1' cursor-spacing='200rpx'>苏</textarea>
+      <textrea class='number' id='one' maxlength='1' cursor-spacing='200rpx'></textarea>
       <textarea class='number' id='two' maxlength='1' cursor-spacing='200rpx'></textarea>
       <textarea class='number' id='three' maxlength='1' cursor-spacing='200rpx'></textarea>
       <textarea class='number' id='four' maxlength='1' cursor-spacing='200rpx'></textarea>
