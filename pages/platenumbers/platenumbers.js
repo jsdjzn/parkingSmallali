@@ -1,10 +1,8 @@
-const app = getApp()
-
+const app = getApp();
 Page({
   data: {
     motto: '鼎集智慧停车',
-    userInfo: {},
-    hasUserInfo: false,
+    plateNumbers:[{number:'苏A1234'}], 
     banner: '../../img/myCarNumber/successful.png',
     carnumber:'../../img/myCarNumber/showNumber.png',
   },
@@ -15,39 +13,50 @@ Page({
     })
   },
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
+    my.httpRequest({
+      url: 'http://localhost:13382/parkingInterface/login/getCarNumber',
+      method: 'GET',
+      header:{
+        'content-type': 'application/json'
+      },
+      dataType: 'json',
+      data:{carOwnerId:this.globalData.carOwnerId},//获取输入的内容
+      success: (res) => {
+        console.log("车辆接口："+JSON.stringify(res));
+        this.globalData.plateNumbers = res.data.carlist,
         this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+          plateNumbers:res.data.carlist
+        });
+      },
+      fail: (err) => {
+        my.alert({
+        title: "错误信息",
+        content: JSON.stringify(err)
         })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      my.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+      } 
+    });
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+  pay(ev) {
+    console.log(ev);
+    my.alert({
+      content: `点击了第${JSON.stringify(ev.detail)}行`,
+    });
+  },
+  navigateTo() {
+    my.navigateTo({ url: '../nokeypay/nokeypay' });
+  },
+  navigateToaddPn() {
+    my.navigateTo({url: '../addplatenumbers/addplatenumbers'});
+  },
+  delPlateNumber() {
+    
+  },
+  onScrollToLower() {
+    const { items5 } = this.data;
+    const newItems = items5.concat(newitems);
+    console.log(newItems.length);
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  }
+      items5: newItems,
+    });
+  },
 })

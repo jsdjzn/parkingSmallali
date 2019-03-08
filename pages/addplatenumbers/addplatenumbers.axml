@@ -1,0 +1,64 @@
+<view class="main">
+  <view class="userinfo">
+      <view class="banner_out">
+    <image class="banner" src="{{banner}}"></image>
+  </view>
+  <view class="content_" >
+    <view class='content_hint'>
+      <text class='hint'>请输入车牌</text>
+    </view>
+  <view class='content_number'>
+    <input name="points" id='one' maxlength="1" cursor-spacing='200rpx' style="width:24px;height:32px;border:1rpx solid #000000"/> 
+    <input name="points" id='two' maxlength="1" cursor-spacing='200rpx' style="width:24px;height:32px;border:1rpx solid #000000"/>
+    <input name="points" id='three' maxlength="1" cursor-spacing='200rpx' style="width:24px;height:32px;border:1rpx solid #000000"/>
+    <input name="points" id='four' maxlength="1" cursor-spacing='200rpx' style="width:24px;height:32px;border:1rpx solid #000000"/>
+    <input name="points" id='five' maxlength="1" cursor-spacing='200rpx' style="width:24px;height:32px;border:1rpx solid #000000"/>
+    <input name="points" id='six' maxlength="1" cursor-spacing='200rpx' style="width:24px;height:32px;border:1rpx solid #000000"/>
+    <input name="points" id='seven' maxlength="1" cursor-spacing='200rpx' style="width:24px;height:32px;border:1rpx solid #000000"/>
+    <input name="points" id='eight' maxlength="1" cursor-spacing='200rpx' style="width:24px;height:32px;border:1rpx solid #000000"/>
+</view>
+    <view class='content_tips'>
+    <text>请确保车牌号真实有效</text>
+    </view>
+    <view class='content_button'>
+    <button class='btn' onTap='jumpPlatenumbers'>确定</button>
+    </view>
+  </view>
+  </view>
+
+    <!--键盘-->
+  <block a:if="{{isKeyboard}}">
+    <view class="keyboard">
+      <!--省份简写键盘-->
+      <view class="td td_nor" a:for="{{keyboardValue}}" a:for-index="idx" a:for-item="itemName" bindtap="tapKeyboard" a:key="keyboardValue" data-index="{{idx}}" data-val="{{itemName}}" hover-class="board_bg" hover-start-time="0" hover-stay-time="80">
+        {{itemName}}
+      </view>
+ 
+      <!--数字键盘不可点击-->
+      <view a:if="{{specialBtn && !tapNum}}" class="td td_num board_bg" a:for="{{keyboardNumber}}" a:for-index="idx" a:for-item="itemName"  a:key="keyboardNumber">
+        {{itemName}}
+      </view>
+ 
+      <!--数字键盘可点击-->
+      <view a:if="{{specialBtn && tapNum}}" class="td td_num" a:for="{{keyboardNumber}}" a:for-index="idx" a:for-item="itemName" bindtap="tapKeyboard" data-index="{{idx}}" data-val="{{itemName}}" hover-class="board_bg" hover-start-time="0" hover-stay-time="80" a:key="keyboardNumber">
+        {{itemName}}
+      </view>
+ 
+      <!--字母键盘-->
+      <view a:if="{{specialBtn}}" class="td td_num" a:for="{{keyboardAlph}}" a:for-index="idx" a:for-item="itemName" a:key="itemName"  hover-class="board_bg" hover-start-time="0" hover-stay-time="80">
+          <view class="del_icon" a:if="{{idx == 19}}" bindtap="tapKeyboard" data-index="{{idx}}" data-val="{{itemName}}">
+            <image src="../../img/backspace.png" mode="aspectFit" data-val="{{itemName}}" class="delect_img"></image>
+          </view>
+          <view  a:elif="{{idx != 19}}" bindtap="tapKeyboard" data-index="{{idx}}" data-val="{{itemName}}">
+          {{itemName}}
+          </view>
+      </view>
+ 
+      <!--完成按钮 start-->
+      <view class="td td_spec_fin" a:for="{{keyboard2For}}" a:key="itemName"   a:for-index="idx" a:for-item="itemName" bindtap="tapSpecBtn" data-index="{{idx}}" data-val="{{itemName}}" a:if="{{specialBtn}}" hover-class="board_bg_spec" hover-start-time="0" hover-stay-time="80">
+        {{itemName}}
+      </view>
+      <!--完成按钮 end-->
+    </view>
+  </block>
+</view>

@@ -1,4 +1,18 @@
-<form bindsubmit='payBill'>
-<input name="plate" type="text" placeholder="请输入车牌号"  value=""></input>
-<button form-type="submit" class="pay"> 缴费</button>
-</form>
+    <block a:for="{{receipt}}">
+    <view class="order">
+      <text class="order-text">收款单号：{{item.receiptNumber}}</text>
+      <text class="status">支付结果：{{item.payResult}}</text>
+    </view>
+    <view class="message">
+      <view>
+      <text class="platenumbers">车牌：{{item.plateNumbers}}</text>
+      <text class="time">{{item.time}}</text>
+      </view>
+      <view class="paytype">
+        <text >支付类型：{{item.payType}}</text>
+      </view>
+      <view class="paymoney">
+        <text >￥{{item.payMoney}}</text>
+      </view>
+    </view>
+    </block>

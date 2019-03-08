@@ -1,5 +1,41 @@
+.count-text{
+ text-align: center;
+  margin-top: 30rpx;
+  font-size: 36rpx;
+}
+.count{
+  text-align: center;
+  margin-top: 20rpx;
+  font-size: 64rpx;
+  color: #169bd5
+}
+.park{
+  background-color:white
+}
+.parktime{
+  text-align: center;
+  margin-top: 20rpx;
+  font-size: 33rpx;
+  font-weight:bold;
+}
+.intime{
+  text-align: center;
+  margin-top: 15rpx;
+  font-size: 24rpx;
+  color: grey
+}
+.outtime{
+  text-align: center;
+  margin-top: 15rpx;
+  font-size: 24rpx;
+  color: grey
+}
 .pay_btn{
+  width: 686rpx;
+  height: 90rpx;
   color: #ffffff;
   font-size: 32rpx;
   background-color: #169bd5;
+  margin-left: 32rpx;
+  margin-top: 100rpx;
 }

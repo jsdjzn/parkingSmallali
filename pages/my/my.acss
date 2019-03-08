@@ -1,5 +1,35 @@
-.pay{
-  color: #ffffff;
-  font-size: 32rpx;
-  background-color: #169bd5;
+.order{
+    background-color: white;
+     margin-top: 20rpx;
+}
+.order-text{
+ font-size: 28rpx;
+}
+.status{
+  color: dodgerblue;
+  font-size: 28rpx;
+  float:right;
+}
+.message{
+  background-color: white;
+   margin-top: 5rpx;
+}
+.platenumbers{
+  text-align: left;
+  font-size: 30rpx;
+}
+.time{
+  float: right;
+  
+}
+.paytype{
+  text-align: left;
+  font-size: 30rpx;
+   margin-top: 10rpx;
+}
+.paymoney{
+ text-align: right;
+ font-size: 36rpx;
+ font-weight:bold;
+  margin-top: 10rpx;
 }

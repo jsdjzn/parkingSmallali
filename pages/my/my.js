@@ -1,17 +1,47 @@
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    receipt:[
+      {receiptNumber:'1234123',
+       payResult:'成功',
+       plateNumbers:'苏A1234',
+       time:'2019年3月5日13时15分12秒',
+       payType:'成功',
+       payMoney:'1500'},
+       {
+        receiptNumber:'1234123',
+        payResult:'成功',
+        plateNumbers:'苏A1234',
+        time:'2019年3月5日13时15分12秒',
+        payType:'成功',
+        payMoney:'1500'}
+       ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+      my.httpRequest({
+            url: 'http://localhost:13382/parkingInterface/payment/getPayRecord',
+            method: 'GET',
+            header:{
+              'content-type': 'application/json'
+            },
+            dataType: 'json',
+            data:{openid:this.globalData.authCode,
+                  plateNumber:'苏A1234',
+                  sysType:'0'},//获取输入的内容
+            success: (res) => {
+              my.setData({
+                receipt:res.data.list
+              });
+            },
+          });
   },
 
   /**
@@ -61,28 +91,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  payBill: function (e) {
-    console.log("66666666666" + e.detail.value.plate)
-    my.request({
-      url: 'http://localhost:8082/parkingInterface/login/getPay',
-      data: {
-        plate: e.detail.value.plate
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log(res.data.money)
-        my.navigateTo({
-          url: '../pay/pay?money=' + res.data.money
-        })
-
-
-      }
-    })
-  }
-
-  
+  }, 
 })

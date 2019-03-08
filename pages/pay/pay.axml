@@ -1,2 +1,18 @@
-<text>您需要支付{{money/100}}元</text>
+<view class="count-text">
+    <text>本次停车需要支付的费用为：</text>
+  </view>
+  <view class="count">
+    <text>{{count}}</text>
+  </view>
+  <view class="park">
+    <view class="parktime">
+      <text>停留时长：{{parktime}}</text>
+    </view>
+    <view class="intime">
+      <text>停车时间：{{intime}}</text>
+    </view>
+    <view class="outtime">
+      <text>取车时间：{{outtime}}</text>
+    </view>
+  </view>
 <button class='pay_btn'>支付</button>

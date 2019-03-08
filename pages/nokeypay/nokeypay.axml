@@ -1,0 +1,10 @@
+<view class="page">
+  <view class="title">
+    <text>鼎集智能停车场免密支付</text>
+  </view>
+  <view class="page-description">
+    <view class="text-demo-title">
+      <text class="text-demo-text">用户名称：{{text1}} \n 套餐内容：{{text2}}</text>
+    </view>  
+  </view>
+</view>

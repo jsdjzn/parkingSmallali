@@ -1,5 +1,6 @@
 {
   "usingComponents": {},
   "navigationBarTitleText": "停车引导",
-  "navigationBarTextStyle": "black"
+  "navigationBarTextStyle": "black",
+  "defaultTitle": "停车引导"
 }

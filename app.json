@@ -1,48 +1,49 @@
 {
-  "pages":[
-    "pages/index/index",
+  "pages":[    
+    "pages/platenumbers/platenumbers",   
+    "pages/addplatenumbers/addplatenumbers",                 
+    "pages/pay/pay",         
+    "pages/my/my",     
+    "pages/nokeypay/nokeypay",
+    "pages/customerservice/customerservice",
     "pages/logs/logs",
-    "pages/my/my",
-    "pages/pay/pay",
     "pages/findthecar/findthecar",
-    "pages/platenumbers/platenumbers",
     "pages/about/about",
     "pages/findthecar/findthecar",
     "pages/logs/logs" 
   ],
   "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "鼎集智慧停车",
-    "navigationBarTextStyle":"black"
+    "defaultTitle": "鼎集智慧停车",
+    "backgroundColor": "#fff"
   },
-  "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#31A1D1",
-    "list": [
-      {
-        "pagePath": "pages/platenumbers/platenumbers",
-        "text": "我 的",
-        "iconPath": "/img/我的.png",
-        "selectedIconPath": "/img/我的选中.png"
+    "tabBar": {
+      "textColor": "#404040",
+      "selectedColor": "#108ee9",
+      "backgroundColor": "#F5F5F9",
+      "items": [
+        {
+        "pagePath": "pages/my/my",
+        "name": "缴费记录",
+        "icon": "/img/缴费记录.png",
+        "activeIcon": "/img/缴费记录选中.png"
       },
       {
-        "pagePath": "pages/my/my",
-        "text": "缴费记录",
-        "iconPath": "/img/缴费记录.png",
-        "selectedIconPath": "/img/缴费记录选中.png"
+        "pagePath": "pages/platenumbers/platenumbers",
+        "name": "我 的",
+        "icon": "/img/我的.png",
+        "activeIcon": "/img/我的选中.png"
       },
       {
         "pagePath": "pages/about/about",
-        "text": "预 约",
-        "iconPath": "/img/预约.png",
-        "selectedIconPath": "/img/预约选中.png"
+        "name": "预 约",
+        "icon": "/img/预约.png",
+        "activeIcon": "/img/预约选中.png"
       },
       {
         "pagePath": "pages/findthecar/findthecar",
-        "text": "停车寻车",
-        "iconPath": "/img/停车寻车.png",
-        "selectedIconPath": "/img/停车寻车选中.png"
+        "name": "停车寻车",
+        "icon": "/img/停车寻车.png",
+        "activeIcon": "/img/停车寻车选中.png"
       }
     ]
   }

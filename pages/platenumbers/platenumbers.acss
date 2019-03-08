@@ -47,9 +47,16 @@ height: 300rpx;
   height: 220rpx;
   width: 100%;
   padding-left: 32rpx; 
-  /* background-color: rgb(182, 194, 22); */
 }
 .pay_btn{
+  width: 686rpx;
+  height: 90rpx;
+  color: #ffffff;
+  font-size: 32rpx;
+  margin-bottom: 40rpx;
+  background-color: #169bd5;
+}
+.add_btn{
   width: 686rpx;
   height: 90rpx;
   color: #ffffff;
