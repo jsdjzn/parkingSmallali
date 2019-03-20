@@ -1,9 +1,14 @@
 App({
   globalData: {
     userInfo:{},
-    plateNumbers:[],
-    authCode:'',
-    carOwnerId:''
+    plateNumbers:"",
+    userId:'',
+    carOwnerId:'',
+    orgId:'3',
+    count:'',
+    parktime:'',
+    intime:'',
+    outtime:''
   },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
@@ -12,9 +17,8 @@ App({
     my.getAuthCode({
       scopes: 'auth_user',
       success: ({ authCode }) => {
-        console.log("授权码："+authCode);
         my.httpRequest({
-            url: 'http://localhost:13382/parkingInterface/djalipay/getAuthorization',
+            url: 'https://njyf.jskingen.com/parkingInterface/djalipay/getAuthorization',
             method: 'GET',
             header:{
               'content-type': 'application/json'
@@ -22,12 +26,10 @@ App({
             dataType: 'json',
             data:{authCode:authCode},
             success: (res) => {
-              console.log("授权接口："+JSON.stringify(res))
               this.globalData.carOwnerId = res.data.carOwnerId,
-              this.globalData.authCode = res.data.authCode,
-              console.log("全局变量："+JSON.stringify(this.globalData));
+              this.globalData.userId = res.data.userId,
               my.httpRequest({
-                url: 'http://localhost:13382/parkingInterface/login/getCarNumber',
+                url: 'https://njyf.jskingen.com/parkingInterface/login/getCarNumber',
                 method: 'GET',
                 header:{
                   'content-type': 'application/json'
@@ -35,7 +37,6 @@ App({
                 dataType: 'json',
                 data:{carOwnerId:this.globalData.carOwnerId},//获取输入的内容
                 success: (res) => {
-                  console.log("车辆接口："+JSON.stringify(res));
                   if(res.data.carNumber === 0){
                     my.navigateTo({ 
                     url: '../addplatenumbers/addplatenumbers' }
@@ -50,19 +51,25 @@ App({
                   my.alert({
                   title: "错误信息",
                   content: JSON.stringify(err)
-                })
-                } 
-          });
+                  })
+                },               
+              });
             },
             fail: (err) => {
               my.alert({
-                title: "错误信息",
-                content: JSON.stringify(err)
-            })
-          }
+              title: "错误信息",
+              content: JSON.stringify(err)
+              })
+              } 
           });
         
       },
+      fail: (err) => {
+        my.alert({
+        title: "错误信息",
+        content: JSON.stringify(err)
+        })
+      } 
     });
   },
 

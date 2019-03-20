@@ -15,4 +15,4 @@
       <text>取车时间：{{outtime}}</text>
     </view>
   </view>
-<button class='pay_btn'>支付</button>
+<button class='pay_btn' type="primary" onTap="pay">支付</button>

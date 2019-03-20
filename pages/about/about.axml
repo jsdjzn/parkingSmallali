@@ -1,17 +1,15 @@
-<view class="main">
-<view class="logo_out"><image class="logo" src="{{logo}}"></image></view>
-<view class="content_" >
-<view class="content_title" ><text class="title_">企业简介</text></view>
-
-<view class="content_detail" ><text class="detail">江苏鼎集智能科技股份有限公司（股票代码：836954）创立于2001年，公司自创立以来一直致力于智慧城市细分领域的自主研发，在智能化系统建设解决方案具有核心竞争力。 凭借强大的研发实力和长期积累的行业经验，拓展行业内的实际应用，将智慧城市的大概念落地，并转化成实际可操作及复制的实体项目。主要包括智慧校园，智能交通、平安城市、智慧消防、城市智能停车管理、智慧旅游、智能化楼宇、智能穿戴设备、空中圈存平台，物联网、大数据等智能信息化系统的研发设计、施工、维护以及相关软硬件产品的研发等全方位一体化的服务。</text></view>
+<view class="park_name">
+  <text>鼎集智能停车场</text>
 </view>
-
-<view class="space" ></view>
-
-<view class="content_" >
-<view class="content_title" ><text class="title_">企业文化</text></view>
-<view class="content_title" ><text class="title_">经营理念:为客户创造价值。</text></view>
-<view class="content_detail" ><text class="detail">内涵诠释：满足客户需求，超越客户期望。客户的需求，是我们行动的指南；客户的抱怨，是我们改进的方向；客户的满意，是我们追求的目标；客户的价值，是我们利益的基点。</text></view>
+<view class="carport">
+  <view class="number">
+    <text>A0001</text>
+  </view>
 </view>
-
+<view class="text">
+  <text>停车位已为您预约成功,详细信息已经通过短信发送至您的手机，请注意查收！</text>
 </view>
+<view class="view">
+  <image class="detail" src="../../img/bookingSuccess/查看预约记录.png"/>
+</view>
+  <view class="det">查询预约详请</view>

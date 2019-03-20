@@ -27,14 +27,14 @@ Page({
    */
   onLoad: function (options) {
       my.httpRequest({
-            url: 'http://localhost:13382/parkingInterface/payment/getPayRecord',
+            url: 'https://njyf.jskingen.com/parkingInterface/payment/getPayRecord',
             method: 'GET',
             header:{
               'content-type': 'application/json'
             },
             dataType: 'json',
-            data:{openid:this.globalData.authCode,
-                  plateNumber:'苏A1234',
+            data:{openid:app.globalData.authCode,
+                  carownerId:app.globalData.carownerId ,
                   sysType:'0'},//获取输入的内容
             success: (res) => {
               my.setData({

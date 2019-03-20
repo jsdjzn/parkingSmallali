@@ -4,19 +4,19 @@
   </view>
   <view class="content_" >
     <view class='content_numbers'>
-       <view class='content_numbers_view'>
-          <block a:for="{{plateNumbers}}">
+      <block a:for="{{plateNumbers}}">
+        <view class='content_numbers_view'>
              <image class='img' src='{{carnumber}}'></image>
-			      <view class='numbers' onTap="pay">
-              <text id="paynumber" >{{item.number}}</text>
+             <image src="../../img/删除.png" class="delimg" id="{{item.plateNumber}}" onTap="delPlateNumber"/>
+			      <view class='numbers' id="{{item.plateNumber}}" onTap="pay">
+              <text id="paynumber">{{item.plateNumber}}</text>
             </view>
-			    </block>
-      </view>
+        </view>
+      </block>
     </view>
     <view class='content_pay'>
         <button class='pay_btn' type="primary" onTap="navigateTo">开通免密支付</button>
         <button class="add_btn" type="primary" onTap="navigateToaddPn">添加车辆</button>
-        <button class='delete_btn' onTap="delPlateNumber">删除车辆</button>
     </view>
   </view>
 </view>

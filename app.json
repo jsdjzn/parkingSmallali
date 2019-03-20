@@ -1,16 +1,15 @@
 {
-  "pages":[    
-    "pages/platenumbers/platenumbers",   
-    "pages/addplatenumbers/addplatenumbers",                 
-    "pages/pay/pay",         
+  "pages":[   
+    "pages/addplatenumbers/addplatenumbers",                
+    "pages/platenumbers/platenumbers",
+    "pages/about/about",             
     "pages/my/my",     
     "pages/nokeypay/nokeypay",
     "pages/customerservice/customerservice",
     "pages/logs/logs",
     "pages/findthecar/findthecar",
-    "pages/about/about",
-    "pages/findthecar/findthecar",
-    "pages/logs/logs" 
+    "pages/logs/logs" ,
+    "pages/pay/pay"
   ],
   "window":{
     "defaultTitle": "鼎集智慧停车",
