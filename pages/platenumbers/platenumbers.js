@@ -30,7 +30,6 @@ Page({
         dataType: 'json',
         data:{carOwnerId:app.globalData.carOwnerId},//获取输入的内容
         success: (res) => {
-          console.log("车牌接口"+JSON.stringify(res));
           this.setData({
             plateNumbers:res.data.userInfo
           });
