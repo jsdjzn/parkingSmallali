@@ -7,6 +7,7 @@ Page({
    * keyboard2:第二页键盘，显示数字和大写字母
    */
   data: {
+    carownerId:'',
     banner: '../../img/logginNumber.png',
     isKeyboard: false,//是否显示键盘
     specialBtn: false,
@@ -38,6 +39,35 @@ Page({
 
   onLoad: function (options) {
     //生命周期函数--    
+    app.userInfoReadyCallback = res => {
+      if (res != '') {
+        my.httpRequest({
+                url: app.globalData.url+'login/getCarNumber',
+                method: 'GET',
+                header:{
+                  'content-type': 'application/json'
+                },
+                dataType: 'json',
+                data:{carOwnerId:app.globalData.carOwnerId},//获取输入的内容
+                success: (res) => {
+                  if(res.data.carNumber != 0){
+                    my.navigateTo({
+                      url: '../platenumbers/platenumbers' 
+                    });
+                  }
+                },                  
+                fail: (err) => {
+                  my.alert({
+                  title: "错误信息",
+                  content: JSON.stringify(err)
+                  })
+                },               
+              });
+      }
+    }
+  },
+  onShow:function(){
+    
   },
   /**
      * 输入框聚焦触发，显示键盘
@@ -359,8 +389,6 @@ Page({
   },
   onReady: function () {
   },
-  onShow: function () {
-  },
   jumpPlatenumbers:function(){
      // 特殊键盘事件（删除和完成）
     var that = this;
@@ -373,7 +401,7 @@ Page({
         });
       } else {
         my.httpRequest({
-          url: 'https://njyf.jskingen.com/parkingInterface/djalipay/addPlateNumbers',
+          url: app.globalData.url+'djalipay/addPlateNumbers',
             method: 'GET',
             header:{
               'content-type': 'application/json'
@@ -383,6 +411,7 @@ Page({
                   plateNumber:plateNumber,
                   carownerId:app.globalData.carOwnerId},//获取输入的内容
           success: (res) => {
+            console.log("添加："+JSON.stringify(res))
             my.navigateTo({
                 url: '../platenumbers/platenumbers' 
               });

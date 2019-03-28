@@ -1,9 +1,9 @@
 {
-  "pages":[   
+  "pages":[  
     "pages/addplatenumbers/addplatenumbers",                
     "pages/platenumbers/platenumbers",
     "pages/about/about",             
-    "pages/my/my",     
+     "pages/my/my", 
     "pages/nokeypay/nokeypay",
     "pages/customerservice/customerservice",
     "pages/logs/logs",

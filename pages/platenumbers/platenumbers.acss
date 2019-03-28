@@ -1,4 +1,7 @@
 /**platenumbers.wxss**/
+page{
+    overflow-x: hidden;
+}
 .main{
   width: 100%;
   height: 1108rpx;
@@ -74,10 +77,11 @@ height: 300rpx;
   margin-bottom: 40rpx;
   background-color: #169bd5;
 }
-.delete_btn{
+.query_btn{
   width: 686rpx;
   height: 90rpx;
+  color: #ffffff;
   font-size: 32rpx;
-  color: #ed1515;
-  background-color: #ffffff;
+  margin-bottom: 40rpx;
+  background-color: #169bd5;
 }

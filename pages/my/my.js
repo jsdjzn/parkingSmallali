@@ -5,42 +5,34 @@ Page({
    * 页面的初始数据
    */
   data: {
-    receipt:[
-      {receiptNumber:'1234123',
-       payResult:'成功',
-       plateNumbers:'苏A1234',
-       time:'2019年3月5日13时15分12秒',
-       payType:'成功',
-       payMoney:'1500'},
-       {
-        receiptNumber:'1234123',
-        payResult:'成功',
-        plateNumbers:'苏A1234',
-        time:'2019年3月5日13时15分12秒',
-        payType:'成功',
-        payMoney:'1500'}
-       ]
+    receipt:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
       my.httpRequest({
-            url: 'https://njyf.jskingen.com/parkingInterface/payment/getPayRecord',
+            url: app.globalData.url+'payment/getPayRecord',
             method: 'GET',
             header:{
               'content-type': 'application/json'
             },
             dataType: 'json',
-            data:{openid:app.globalData.authCode,
-                  carownerId:app.globalData.carownerId ,
-                  sysType:'0'},//获取输入的内容
+            data:{
+                  carownerId:app.globalData.carOwnerId },//获取输入的内容
             success: (res) => {
-              my.setData({
+              console.log("缴费："+JSON.stringfy(res));
+              this.setData({
                 receipt:res.data.list
               });
             },
+            fail: (err) => {
+              my.alert({
+                title: "错误信息",
+                content: JSON.stringify(err)
+              })
+            }
           });
   },
 

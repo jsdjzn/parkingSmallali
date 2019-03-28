@@ -2,7 +2,7 @@
     <text>本次停车需要支付的费用为：</text>
   </view>
   <view class="count">
-    <text>{{count}}</text>
+    <text>{{count}}元</text>
   </view>
   <view class="park">
     <view class="parktime">

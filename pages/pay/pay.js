@@ -5,10 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    count:0,
-    parktime:'0分',
-    intime:'0',
-    outtime:'0'
+    count:'',
+    parktime:'',
+    intime:'',
+    outtime:'',
   },
 
   /**
@@ -30,14 +30,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      count:app.globalData.count,
-      parktime:app.globalData.parktime,
-      intime:app.globalData.intime,
-      outtime:app.globalData.outtime
-    });
     my.httpRequest({
-      url: 'https://njyf.jskingen.com/parkingInterface/payment/getPay',
+      url: app.globalData.url+'payment/getPay',
       method: 'GET',
       header:{
         'content-type': 'application/json'
@@ -45,20 +39,20 @@ Page({
       dataType: 'json',
       data:{plateNumber:app.globalData.plateNumbers},//获取输入的内容
       success: (res) => {
-         this.setData({
-           count:res.data.fee,
-           parktime:res.data.stayTime,
-           intime:res.data.inTime,
-           outtime:res.data.outTime
-         });
-         if(res.data.count == 0){
-           my.alert({
-             title:"免费",
-             content:"本次停车无需支付费用！"
-           })
-         }
+        this.setData({
+          count:res.data.fee,
+          parktime:res.data.stayTime,
+          intime:res.data.inTime,
+          outtime:res.data.outTime
+          })
+        if(res.data.fee == 0){
+          my.alert({
+            title:"免费",
+            content:"本次停车无需支付费用！"
+          })
+        }
         my.httpRequest({
-          url: 'https://njyf.jskingen.com/parkingInterface/payment/addReceipt',
+          url: app.globalData.url+'payment/addReceipt',
           method: 'GET',
           header:{
             'content-type': 'application/json'
@@ -66,26 +60,29 @@ Page({
           dataType: 'json',
           data:{orgId:app.globalData.orgId,
                 ownerId:app.globalData.carOwnerId,
-                plateNumber:app.globalData.plateNumber,
+                plateNumber:app.globalData.plateNumbers,
                 carId:app.globalData.carId,
                 payType:'1',
                 payResult:"1",
                 payMoney:this.data.count
                 },//获取输入的内容
+          success: (res) => {
+            app.globalData.receiptNumber = res.data.receiptNumber      
+          },
           fail: (err) => {
             my.alert({
-            title: "错误信息",
-            content: JSON.stringify(err)
-          })
-        } 
+              title: "错误信息",
+              content: JSON.stringify(err)
+            })
+          } 
         });
       },
       fail: (err) => {
-          my.alert({
-          title: "错误信息1111",
+        my.alert({
+          title: "错误信息",
           content: JSON.stringify(err)
-          })
-        } 
+        })
+      }, 
     });
   },
 
@@ -124,23 +121,45 @@ Page({
 
   },
     pay() {
-      console.log("1111111111111111111");
       var that = this;
-      my.httpRequest({
-        url: 'https://njyf.jskingen.com/parkingInterface/alipay/createtrade',//须加httpRequest域白名单
+      if(that.data.count == 0){
+         my.alert({
+            title:"免费",
+            content:"本次停车无需支付费用！"
+          })
+      }else{
+        my.httpRequest({
+        url: app.globalData.url+'alipay/createtrade',//须加httpRequest域白名单
         method: 'POST',
         data: {
-        outTradeNo: '1111', 
-        buyer_id: '1234', },
+        outTradeNo: app.globalData.receiptNumber, 
+        buyer_id: app.globalData.userId },
         dataType: 'json',
         success: function(res) {
           that.tradePay(res.data.trade_no);
         },
         fail: function(res) {
+          my.alert({
+              title: "错误信息",
+              content: JSON.stringify(res)
+            })
         },
         complete: function(res) {
           my.hideLoading();
         }
       });
+      }  
     },
+    tradePay: function(tradeNO){
+      my.tradePay({
+        tradeNO: tradeNO,  
+        success: function(res) {
+          my.alert(res.resultCode);
+        },
+        fail: function(res) {
+            my.alert(res.resultCode);
+          },
+      });
+  }
+  
 })

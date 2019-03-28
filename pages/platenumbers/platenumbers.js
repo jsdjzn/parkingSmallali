@@ -2,27 +2,15 @@ const app = getApp();
 Page({
   data: {
     motto: '鼎集智慧停车',
-    plateNumbers:"", 
+    plateNumbers:'', 
     banner: '../../img/myCarNumber/successful.png',
     carnumber:'../../img/myCarNumber/showNumber.png',
     carownerId:''
   },
   onShow: function () {
-    var that = this;
-    if (app.globalData.carOwnerId != ''){
-      that.setData({
-        carownerId:app.globalData.carOwnerId
-      })
-    }else{
-      app.callback = () => {
-        that.setData({
-          carownerId: app.globalData.carOwnerId,
-        })
-      };
-    }
-    if(that.data.carownerId !=''){
+    if(app.globalData.carOwnerId !=''){
       my.httpRequest({
-        url: 'https://njyf.jskingen.com/parkingInterface/login/getAllPlatenumber',
+        url: app.globalData.url+'login/getAllPlatenumber',
         method: 'GET',
         header:{
           'content-type': 'application/json'
@@ -46,57 +34,29 @@ Page({
   pay(ev) {
     var plateNumber = this.data.plateNumbers;
     for(var i =0;i<plateNumber.length;i++){
-      if(plateNumber[i].plateNumber == ev.currentTarget.id){
+      if(plateNumber[i].plateNumber == ev.currentTarget.dataset.name){
         app.globalData.carId = plateNumber[i].carId;
       }
     }
-    app.globalData.plateNumbers = ev.currentTarget.id;
+    app.globalData.plateNumbers = ev.currentTarget.dataset.name;
     my.httpRequest({
-          url: 'https://njyf.jskingen.com/parkingInterface/payment/hasIoRecord',
+          url: app.globalData.url+'payment/hasIoRecord',
           method: 'GET',
           header:{
             'content-type': 'application/json'
           },
           dataType: 'json',
           data:{
-                plateNumber:app.globalData.plateNumber,
+                plateNumber:app.globalData.plateNumbers,
                 },//获取输入的内容
           success: (res) => {
-            if(res.data.ioRecord == 1){
+            if(res.data.ioRecord == 0){
               my.alert({
                 title: "无需付费",
-                content: "您尚未停车，无需缴费！"
+                content: "您尚未停车，无需缴费,如有问题，请联系管理员！！"
               })
             }else if(res.data.ioRecord == 1){
-              my.httpRequest({
-                url: 'https://njyf.jskingen.com/parkingInterface/payment/getPay',
-                method: 'GET',
-                header:{
-                  'content-type': 'application/json'
-                },
-                dataType: 'json',
-                data:{plateNumber:app.globalData.plateNumbers},//获取输入的内容
-                success: (res) => {
-                  app.globalData.count = res.data.fee;
-                  app.globalData.intime = res.data.inTime;
-                  app.globalData.outtime = res.data.outTime;
-                  app.globalData.parktime = res.data.stayTime;
-                  if(res.data.count == 0){
-                    my.alert({
-                      title:"免费",
-                      content:"本次停车无需支付费用！"
-                    })
-                  }else{
-                    my.navigateTo({ url: '../pay/pay' });
-                  }
-                },
-                fail: (err) => {
-                  my.alert({
-                    title: "错误信息",
-                    content: JSON.stringify(err)
-                  })
-                }, 
-              });
+              my.navigateTo({ url: '../pay/pay' });
             }
           },
           fail: (err) => {
@@ -113,37 +73,44 @@ Page({
   navigateToaddPn() {
     my.navigateTo({url: '../addplatenumbers/addplatenumbers'});
   },
+  query(){
+    my.navigateTo({url: '../my/my'});
+  },
   delPlateNumber(ev) {
-    my.alert({
+    my.confirm({
       title: "删除车牌",
       content: "是否删除车牌",
-      success: () => {
-        my.httpRequest({
-          url: 'https://njyf.jskingen.com/parkingInterface/payment/deletPlateNumber',
-          method: 'GET',
-          header:{
-            'content-type': 'application/json'
-          },
-          dataType: 'json',
-          data:{plateNumber:ev.currentTarget.id},//获取输入的内容
-          success: (res) => {
-            var platenumbers = this.data.plateNumbers;
-            for(var i=0;i<platenumbers.length;i++){
-              if(platenumbers[i].plateNumber == ev.currentTarget.id){
-                platenumbers.splice(i,1);
+      confirmButtonText:"确认",
+      cancelButtonText:"取消",
+      success: (result) => {
+        if(result.confirm){
+          my.httpRequest({
+            url: app.globalData.url+'payment/deletPlateNumber',
+            method: 'GET',
+            header:{
+              'content-type': 'application/json'
+            },
+            dataType: 'json',
+            data:{plateNumber:ev.currentTarget.dataset.name},//获取输入的内容
+            success: (res) => {
+              var platenumbers = this.data.plateNumbers;
+              for(var i=0;i<platenumbers.length;i++){
+                if(platenumbers[i].plateNumber == ev.currentTarget.dataset.name){
+                  platenumbers.splice(i,1);
+                }
               }
-            }
-            this.setData({
-              plateNumbers:platenumbers
-            })
-          },
-          fail: (err) => {
-            my.alert({
-              title: "错误信息",
-              content: JSON.stringify(err)
-            })
+              this.setData({
+                plateNumbers:platenumbers
+              })
+            },
+            fail: (err) => {
+              my.alert({
+                title: "错误信息",
+                content: JSON.stringify(err)
+              })
           } 
         });
+        }        
       },
     })
   },
