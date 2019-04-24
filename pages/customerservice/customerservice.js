@@ -3,19 +3,23 @@ Page({
      showRight: false,
      items2: [
       {
-        title: '常见问题',
+        title: '如何使用',
         arrow: true,
       },
       {
-        title: '充值协议',
+        title: '关于缴费记录',
         arrow: 'up',
       },
       {
-        title: '服务协议',
+        title: '关于费用',
         arrow: 'down',
       },
       {
-        title: '隐私政策',
+        title: '寻车引导',
+        arrow: 'empty',
+      },
+      {
+        title: '关于支付',
         arrow: 'empty',
       },
       {
@@ -25,9 +29,19 @@ Page({
     ]
   },
     onItemClick(ev) {
-    my.alert({
-      content: `点击了第${ev.index}行`,
-    });
+      if(ev.index == 0) {
+        my.navigateTo({ url: '../about/about' });
+      }else if(ev.index ==1) {
+        my.navigateTo({ url: '../nokeypay/nokeypay' });
+      }else if(ev.index ==2) {
+          my.navigateTo({ url: '../nokeypay/nokeypay' });
+      }else if(ev.index ==3) {
+          my.navigateTo({ url: '../nokeypay/nokeypay' });
+      }else if(ev.index ==4) {
+          my.navigateTo({ url: '../nokeypay/nokeypay' });
+      }else if(ev.index ==5) {
+          my.navigateTo({ url: '../about/about' });
+      }
   },
     onScrollToLower() {
     const { items5 } = this.data;

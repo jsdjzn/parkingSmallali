@@ -3,7 +3,7 @@ Page({
   data: {
     motto: '鼎集智慧停车',
     plateNumbers:'', 
-    banner: '../../img/myCarNumber/successful.png',
+    banner: 'https://njyf.jskingen.com/images/indexBanner2.jpg',
     carnumber:'../../img/myCarNumber/showNumber.png',
     carownerId:''
   },
@@ -114,4 +114,7 @@ Page({
       },
     })
   },
+  customerservice(){
+    my.navigateTo({url: '../customerservice/customerservice'});
+  }
 })

@@ -129,6 +129,27 @@ Page({
           })
       }else{
         my.httpRequest({
+        url: app.globalData.url+'alipay/getCode',//须加httpRequest域白名单
+        method: 'POST',
+        data: {
+        outTradeNo: app.globalData.receiptNumber, 
+        buyer_id: app.globalData.userId },
+        dataType: 'json',
+        success: function(res) {
+          console.log(JSON.stringify(res))
+          that.tradePay(res.data.qr_code);
+        },
+        fail: function(res) {
+          my.alert({
+              title: "错误信息",
+              content: JSON.stringify(res)
+            })
+        },
+        complete: function(res) {
+          my.hideLoading();
+        }
+      });
+        /*my.httpRequest({
         url: app.globalData.url+'alipay/createtrade',//须加httpRequest域白名单
         method: 'POST',
         data: {
@@ -147,7 +168,7 @@ Page({
         complete: function(res) {
           my.hideLoading();
         }
-      });
+      });*/
       }  
     },
     tradePay: function(tradeNO){

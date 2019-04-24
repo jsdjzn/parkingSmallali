@@ -1,12 +1,12 @@
 <view>
-  <scroll-view style="height: 100vh;" scroll-y onScrollToLower="onScrollToLower">
+  <scroll-view style="height: 100vh;">
     <list>
      <block a:for="{{items2}}">
 				<list-item
 					thumb="{{item.thumb}}"
 					arrow="{{item.arrow}}"
 					onClick="onItemClick"
-					index="items2-{{index}}"
+					index="{{index}}"
 					key="items2-{{index}}"
 					last="{{index === (items2.length - 1)}}"
 				>

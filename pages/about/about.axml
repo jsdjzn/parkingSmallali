@@ -1,15 +1,34 @@
-<view class="park_name">
-  <text>鼎集智能停车场</text>
+<view class="main">
+<view class="content_" >
+<view class="content_title" ><text class="title_">如何使用？</text></view>
+<view class="content_detail" ><text class="detail">出场前使用微信或支付宝扫描二维码，进入小程序后输入车牌号即可支付停车费用，您在场内缴费后，有15分钟免费出场时间，超过15分钟后，系统将再次计费，请您及时离场。您也可以开通免密授权支付，这样您可以无需手动付费，无感放行，由本平台自动代扣您的停车费用。</text></view>
 </view>
-<view class="carport">
-  <view class="number">
-    <text>A0001</text>
-  </view>
+
+<view class="space" ></view>
+
+<view class="content_" >
+<view class="content_title" ><text class="title_">怎么查看我的缴费记录？</text></view>
+<view class="content_detail" ><text class="detail">您可以在支付宝或微信小程序中的缴费记录菜单中查看您的缴费记录。</text></view>
 </view>
-<view class="text">
-  <text>停车位已为您预约成功,详细信息已经通过短信发送至您的手机，请注意查收！</text>
+
+<view class="space" ></view>
+
+<view class="content_" >
+<view class="content_title" ><text class="title_">扣的钱不对，怎么办？</text></view>
+<view class="content_detail" ><text class="detail">本系统计费是根据物价局审批的价格进行收费，如果您对收费金额有异议，请联系我们的客服为您具体查询。</text></view>
 </view>
-<view class="view">
-  <image class="detail" src="../../img/bookingSuccess/查看预约记录.png"/>
+
+<view class="space" ></view>
+
+<view class="content_" >
+<view class="content_title" ><text class="title_">如何寻车？</text></view>
+<view class="content_detail" ><text class="detail">进入微信或支付宝小程序中的寻车/停车菜单，如果您所在的停车场支持寻车功能，即可以在其中查看您的爱车所在的车位情况。</text></view>
 </view>
-  <view class="det">查询预约详请</view>
+<view class="space" ></view>
+
+<view class="content_" >
+<view class="content_title" ><text class="title_">小程序无法支付怎么办？</text></view>
+<view class="content_detail" ><text class="detail">请确认网络连接是否正常，本平台支持微信和支付宝小程序支付，如遇到某平台故障，请尝试另外一种支付方式。</text></view>
+</view>
+
+</view>

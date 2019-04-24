@@ -6,8 +6,8 @@ App({
     carOwnerId:'',
     orgId:'3',
     receiptNumber:'',
-    //url:'http://localhost:13382/parkingInterface/',
-    url:'https://njyf.jskingen.com/parkingInterface/'
+    url:'http://localhost:13382/parkingInterface/',
+    //url:'https://njyf.jskingen.com/parkingInterface/'
   },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）

@@ -85,3 +85,11 @@ height: 300rpx;
   margin-bottom: 40rpx;
   background-color: #169bd5;
 }
+.cust_btn{
+  width: 686rpx;
+  height: 90rpx;
+  color: #ffffff;
+  font-size: 32rpx;
+  margin-bottom: 40rpx;
+  background-color: #169bd5;
+}

@@ -1,37 +1,50 @@
-.park_name{
-  text-align: center;
-  margin-top: 50rpx;
-  font-size: 36rpx;
+page{
+  background:#f2f2f2;
 }
-.carport{
-   background-color: dodgerblue;
-   height: 363rpx;
-   width: 363rpx;
-   margin-left: 200rpx;
-   margin-top: 50rpx;
-   border: 3rpx solid #00f;
+.main{
+  background-color:#f2f2f2;
 }
-.number{
-  text-align: center;
-  margin-top: 100rpx;
-  font-size: 128rpx;
-  color: white;
+
+.title_{
+font-size: 0.4rem;
+vertical-align:middle;
+padding: 0rpx;
+height:45rpx;
+text-align:left;
+display: table-cell;
 }
-.text{
-  text-align: center;
-  margin-top: 50rpx;
-  font-size: 32rpx;
-  color: dodgerblue;
-}
-.view{
-  margin-top: 200rpx;
-  text-align: center;
-}
+
 .detail{
-  height: 100rpx;
-  width: 100rpx;
+  font-size: 0.3rem;
+  line-height: 1.5em;
 }
-.det{
-  margin-top: 10rpx;
-  text-align: center;
+
+.logo {
+  width: 50%;
+  height: 128rpx;
+  margin-left: 25%;
+  margin-top: 5%;
+}
+
+.logo_out{
+  height: 220rpx;
+}
+.content_{
+  width: 100%;
+  background-color: white;
+}
+
+.content_title{
+  width: 85%;
+  height: 90rpx;
+  padding: 0rpx 24rpx 0rpx 24rpx;
+}
+
+.content_detail{
+  width: 85%;
+  padding: 0rpx 27rpx 20rpx 27rpx;
+}
+
+.space{
+height: 40rpx;
 }
