@@ -1,4 +1,5 @@
 const app = getApp();
+var RSA = require('../../utils/wx_rsa.js');
 Page({
   data: {
     motto: '鼎集智慧停车',
@@ -9,23 +10,37 @@ Page({
   },
   onShow: function () {
     if(app.globalData.carOwnerId !=''){
-      my.httpRequest({
+      var encStr = "";
+      var input_rsa = app.globalData.carOwnerId;
+      var jsonData = JSON.stringify({ carOwnerId: input_rsa})
+      var encrypt_rsa = new RSA.RSAKey();
+      encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+      encStr = encrypt_rsa.encrypt(jsonData)
+      encStr = RSA.hex2b64(encStr);
+      my.request({
         url: app.globalData.url+'login/getAllPlatenumber',
-        method: 'GET',
+        method: 'POST',
         header:{
           'content-type': 'application/json'
         },
         dataType: 'json',
-        data:{carOwnerId:app.globalData.carOwnerId},//获取输入的内容
+        data:{requestData: encStr},//获取输入的内容
         success: (res) => {
-          this.setData({
-            plateNumbers:res.data.userInfo
-          });
+          if(res.data.code === 500){
+                my.alert({
+                title: "错误信息",
+                content: res.data.msg
+                })
+          } else {
+              this.setData({
+                plateNumbers:res.data.userInfo
+              });
+          }
         },
         fail: (err) => {
           my.alert({
-          title: "错误信息",
-          content: JSON.stringify(err)
+            title: "错误信息",
+            content: JSON.stringify(err)
           })
         } 
       });
@@ -39,18 +54,30 @@ Page({
       }
     }
     app.globalData.plateNumbers = ev.currentTarget.dataset.name;
-    my.httpRequest({
+    var encStr = ""
+    var input_rsa = app.globalData.plateNumbers;
+    var jsonData = JSON.stringify({ plateNumber: input_rsa})
+    var encrypt_rsa = new RSA.RSAKey();
+    encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+    encStr = encrypt_rsa.encrypt(jsonData)
+    encStr = RSA.hex2b64(encStr);
+    my.request({
           url: app.globalData.url+'payment/hasIoRecord',
-          method: 'GET',
+          method: 'POST',
           header:{
             'content-type': 'application/json'
           },
           dataType: 'json',
           data:{
-                plateNumber:app.globalData.plateNumbers,
+                requestData: encStr
                 },//获取输入的内容
           success: (res) => {
-            if(res.data.ioRecord == 0){
+            if(res.data.code === 500){
+                my.alert({
+                title: "错误信息",
+                content: res.data.msg
+                })
+            } else if(res.data.ioRecord == 0){
               my.alert({
                 title: "无需付费",
                 content: "您尚未停车，无需缴费,如有问题，请联系管理员！！"
@@ -83,25 +110,44 @@ Page({
       confirmButtonText:"确认",
       cancelButtonText:"取消",
       success: (result) => {
-        if(result.confirm){
-          my.httpRequest({
+        if(res.data.code === 500){
+                my.alert({
+                title: "错误信息",
+                content: res.data.msg
+                })
+          }else if(result.confirm){
+          var encStr = ""
+          var input_rsa = ev.currentTarget.dataset.name;
+          var jsonData = JSON.stringify({ plateNumber: input_rsa})
+          var encrypt_rsa = new RSA.RSAKey();
+          encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+          encStr = encrypt_rsa.encrypt(jsonData)
+          encStr = RSA.hex2b64(encStr);
+          my.request({
             url: app.globalData.url+'payment/deletPlateNumber',
-            method: 'GET',
+            method: 'POST',
             header:{
               'content-type': 'application/json'
             },
             dataType: 'json',
-            data:{plateNumber:ev.currentTarget.dataset.name},//获取输入的内容
+            data:{requestData: encStr},//获取输入的内容
             success: (res) => {
-              var platenumbers = this.data.plateNumbers;
-              for(var i=0;i<platenumbers.length;i++){
-                if(platenumbers[i].plateNumber == ev.currentTarget.dataset.name){
-                  platenumbers.splice(i,1);
+              if(res.data.code === 500){
+                my.alert({
+                title: "错误信息",
+                content: res.data.msg
+                })
+              } else {
+                var platenumbers = this.data.plateNumbers;
+                for(var i=0;i<platenumbers.length;i++){
+                  if(platenumbers[i].plateNumber == ev.currentTarget.dataset.name){
+                    platenumbers.splice(i,1);
+                  }
                 }
-              }
-              this.setData({
-                plateNumbers:platenumbers
-              })
+                this.setData({
+                  plateNumbers:platenumbers
+                })
+              } 
             },
             fail: (err) => {
               my.alert({

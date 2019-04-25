@@ -1,4 +1,5 @@
 var app = getApp();
+var RSA = require('../../utils/wx_rsa.js');
 Page({
 
   /**
@@ -41,16 +42,28 @@ Page({
     //生命周期函数--    
     app.userInfoReadyCallback = res => {
       if (res != '') {
-        my.httpRequest({
+         var encStr = ""
+         var input_rsa = app.globalData.carOwnerId;
+         var jsonData = JSON.stringify({ carOwnerId: input_rsa})
+         var encrypt_rsa = new RSA.RSAKey();
+         encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+         encStr = encrypt_rsa.encrypt(jsonData)
+         encStr = RSA.hex2b64(encStr);
+        my.request({
                 url: app.globalData.url+'login/getCarNumber',
-                method: 'GET',
+                method: 'POST',
                 header:{
                   'content-type': 'application/json'
                 },
                 dataType: 'json',
-                data:{carOwnerId:app.globalData.carOwnerId},//获取输入的内容
+                data:{requestData: encStr},//获取输入的内容
                 success: (res) => {
-                  if(res.data.carNumber != 0){
+                  if(res.data.code === 500){
+                    my.alert({
+                      title: "错误信息",
+                      content: res.data.msg
+                    })
+                  }else if(res.data.carNumber != 0){
                     my.navigateTo({
                       url: '../platenumbers/platenumbers' 
                     });
@@ -400,27 +413,39 @@ Page({
           title: '车牌号不正确' ,
         });
       } else {
-        my.httpRequest({
+        var encStr = ""
+        var carownerId = app.globalData.carOwnerId;
+        var orgId = app.globalData.orgId;
+        var jsonData = JSON.stringify({ carownerId: carownerId, orgId: orgId, plateNumber: plateNumber})
+        var encrypt_rsa = new RSA.RSAKey();
+        encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+        encStr = encrypt_rsa.encrypt(jsonData)
+        encStr = RSA.hex2b64(encStr);
+        my.request({
           url: app.globalData.url+'djalipay/addPlateNumbers',
-            method: 'GET',
+            method: 'POST',
             header:{
               'content-type': 'application/json'
             },
             dataType: 'json',
-            data:{orgId:app.globalData.orgId,
-                  plateNumber:plateNumber,
-                  carownerId:app.globalData.carOwnerId},//获取输入的内容
+            data:{requestData: encStr},//获取输入的内容
           success: (res) => {
-            console.log("添加："+JSON.stringify(res))
-            my.navigateTo({
-                url: '../platenumbers/platenumbers' 
-              });
+            if(res.data.code === 500){
+                my.alert({
+                title: "错误信息",
+                content: res.data.msg
+                })
+              }else {
+                my.navigateTo({
+                  url: '../platenumbers/platenumbers' 
+                });
+              }
           },
           fail: (err) => {
             my.alert({
-            title: "错误信息",
-            content: JSON.stringify(err)
-        })
+              title: "错误信息",
+              content: JSON.stringify(err)
+            })
       } 
     });
   }

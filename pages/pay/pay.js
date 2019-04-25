@@ -1,4 +1,5 @@
 var app = getApp();
+var RSA = require('../../utils/wx_rsa.js');
 Page({
 
   /**
@@ -30,44 +31,77 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    my.httpRequest({
+    var encStr = ""
+    var input_rsa = app.globalData.plateNumbers;
+    var jsonData = JSON.stringify({ plateNumber: input_rsa})
+    var encrypt_rsa = new RSA.RSAKey();
+    encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+    encStr = encrypt_rsa.encrypt(jsonData)
+    encStr = RSA.hex2b64(encStr);
+    my.request({
       url: app.globalData.url+'payment/getPay',
-      method: 'GET',
+      method: 'POST',
       header:{
         'content-type': 'application/json'
       },
       dataType: 'json',
-      data:{plateNumber:app.globalData.plateNumbers},//获取输入的内容
+      data:{requestData: encStr},//获取输入的内容
       success: (res) => {
-        this.setData({
-          count:res.data.fee,
-          parktime:res.data.stayTime,
-          intime:res.data.inTime,
-          outtime:res.data.outTime
+        if(res.data.code === 500){
+              my.alert({
+                title: "错误信息",
+                content: res.data.msg
+              })
+        } else {
+          this.setData({
+            count:res.data.fee,
+            parktime:res.data.stayTime,
+            intime:res.data.inTime,
+            outtime:res.data.outTime
           })
-        if(res.data.fee == 0){
-          my.alert({
-            title:"免费",
-            content:"本次停车无需支付费用！"
-          })
+          if(res.data.fee == 0){
+            my.alert({
+              title:"免费",
+              content:"本次停车无需支付费用！"
+            })
+          }
         }
-        my.httpRequest({
+        var encStr = ""
+        var orgId=app.globalData.orgId;
+        var ownerId=app.globalData.carOwnerId;
+        var plateNumber=app.globalData.plateNumbers;
+        var carId=app.globalData.carId;
+        var payType='1';
+        var payResult='1';
+        var payMoney=this.data.count;
+        var jsonData = JSON.stringify({ orgId: orgId, 
+                                        ownerId: ownerId,
+                                        plateNumber: plateNumber,
+                                        carId: carId,
+                                        payType: payType,
+                                        payResult: payResult,
+                                        payMoney: payMoney})
+        var encrypt_rsa = new RSA.RSAKey();
+        encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+        encStr = encrypt_rsa.encrypt(jsonData)
+        encStr = RSA.hex2b64(encStr);
+        my.request({
           url: app.globalData.url+'payment/addReceipt',
-          method: 'GET',
+          method: 'POST',
           header:{
             'content-type': 'application/json'
           },
           dataType: 'json',
-          data:{orgId:app.globalData.orgId,
-                ownerId:app.globalData.carOwnerId,
-                plateNumber:app.globalData.plateNumbers,
-                carId:app.globalData.carId,
-                payType:'1',
-                payResult:"1",
-                payMoney:this.data.count
-                },//获取输入的内容
+          data:{requestData: encStr},//获取输入的内容
           success: (res) => {
-            app.globalData.receiptNumber = res.data.receiptNumber      
+            if(res.data.code === 500){
+              my.alert({
+                title: "错误信息",
+                content: res.data.msg
+              })
+            } else {
+                app.globalData.receiptNumber = res.data.receiptNumber      
+            }
           },
           fail: (err) => {
             my.alert({
@@ -128,16 +162,33 @@ Page({
             content:"本次停车无需支付费用！"
           })
       }else{
-        my.httpRequest({
-        url: app.globalData.url+'alipay/getCode',//须加httpRequest域白名单
+        var encStr = ""
+        var outTradeNo= app.globalData.receiptNumber;
+        var buyer_id= app.globalData.userId;
+        var jsonData = JSON.stringify({ outTradeNo: outTradeNo, buyer_id: buyer_id})
+        var encrypt_rsa = new RSA.RSAKey();
+        encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+        encStr = encrypt_rsa.encrypt(jsonData)
+        encStr = RSA.hex2b64(encStr);
+        my.request({
+        url: app.globalData.url+'alipay/getCode',
         method: 'POST',
+        header:{
+            'content-type': 'application/json'
+          },
         data: {
-        outTradeNo: app.globalData.receiptNumber, 
-        buyer_id: app.globalData.userId },
-        dataType: 'json',
+          requestData: encStr
+         },
+         dataType: 'json',
         success: function(res) {
-          console.log(JSON.stringify(res))
-          that.tradePay(res.data.qr_code);
+          if(res.data.code === 500){
+              my.alert({
+                title: "错误信息",
+                content: res.data.msg
+              })
+          } else {
+            that.tradePay(res.data.qr_code);
+          }
         },
         fail: function(res) {
           my.alert({

@@ -1,4 +1,5 @@
 const app = getApp();
+var RSA = require('../../utils/wx_rsa.js');
 Page({
 
   /**
@@ -12,15 +13,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-      my.httpRequest({
+         var encStr = ""
+         var input_rsa = app.globalData.carOwnerId;
+         var jsonData = JSON.stringify({ carownerId: input_rsa})
+         var encrypt_rsa = new RSA.RSAKey();
+         encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+         encStr = encrypt_rsa.encrypt(jsonData)
+         encStr = RSA.hex2b64(encStr);
+      my.request({
             url: app.globalData.url+'payment/getPayRecord',
-            method: 'GET',
+            method: 'POST',
             header:{
               'content-type': 'application/json'
             },
             dataType: 'json',
-            data:{
-                  carownerId:app.globalData.carOwnerId },//获取输入的内容
+            data:{requestData: encStr},//获取输入的内容
             success: (res) => {
               console.log("缴费："+JSON.stringfy(res));
               this.setData({
