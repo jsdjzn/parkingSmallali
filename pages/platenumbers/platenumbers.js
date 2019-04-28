@@ -9,42 +9,84 @@ Page({
     carownerId:''
   },
   onShow: function () {
-    if(app.globalData.carOwnerId !=''){
-      var encStr = "";
-      var input_rsa = app.globalData.carOwnerId;
-      var jsonData = JSON.stringify({ carOwnerId: input_rsa})
-      var encrypt_rsa = new RSA.RSAKey();
-      encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
-      encStr = encrypt_rsa.encrypt(jsonData)
-      encStr = RSA.hex2b64(encStr);
-      my.request({
-        url: app.globalData.url+'login/getAllPlatenumber',
-        method: 'POST',
-        header:{
-          'content-type': 'application/json'
-        },
-        dataType: 'json',
-        data:{requestData: encStr},//获取输入的内容
-        success: (res) => {
-          if(res.data.code === 500){
+      my.getAuthCode({  
+          scopes: 'auth_user',
+          success: ({ authCode }) => {
+            var encStr = ""
+            var authCode = authCode;
+            var jsonData = JSON.stringify({ authCode: authCode})
+            var encrypt_rsa = new RSA.RSAKey();
+            encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+            encStr = encrypt_rsa.encrypt(jsonData)
+            encStr = RSA.hex2b64(encStr);
+            my.request({
+              url: app.globalData.url+'djalipay/getAuthorization',
+              method: 'POST',
+              header:{
+                'content-type': 'application/json'
+              },
+              dataType: 'json',
+              data:{requestData: encStr},
+              success: (res) => {
+                if(res.data.code === 500){
+                  my.alert({
+                    title: "错误信息",
+                    content: res.data.msg
+                  })
+                }else{
+                  app.globalData.carOwnerId = res.data.carOwnerId,
+                  app.globalData.userId = res.data.userId;
+                  var encStr = "";
+                  var input_rsa = app.globalData.carOwnerId;
+                  var jsonData = JSON.stringify({ carOwnerId: input_rsa})
+                  var encrypt_rsa = new RSA.RSAKey();
+                  encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+                  encStr = encrypt_rsa.encrypt(jsonData)
+                  encStr = RSA.hex2b64(encStr);
+                  my.request({
+                    url: app.globalData.url+'login/getAllPlatenumber',
+                    method: 'POST',
+                    header:{
+                      'content-type': 'application/json'
+                    },
+                    dataType: 'json',
+                    data:{requestData: encStr},//获取输入的内容
+                    success: (res) => {
+                      if(res.data.code === 500){
+                        my.alert({
+                          title: "错误信息",
+                          content: res.data.msg
+                        })
+                      } else {
+                        this.setData({
+                          plateNumbers:res.data.userInfo
+                      });
+                      }
+                    },
+                    fail: (err) => {
+                      my.alert({
+                        title: "错误信息",
+                        content: JSON.stringify(err)
+                      })
+                    } 
+                  }); 
+                }
+              },
+              fail: (err) => {
                 my.alert({
-                title: "错误信息",
-                content: res.data.msg
+                  title: "错误信息",
+                  content: JSON.stringify(err)
                 })
-          } else {
-              this.setData({
-                plateNumbers:res.data.userInfo
-              });
+              }  
+            });
+          },
+          fail: (err) => {
+            my.alert({
+              title: "错误信息",
+              content: JSON.stringify(err)
+            })
           }
-        },
-        fail: (err) => {
-          my.alert({
-            title: "错误信息",
-            content: JSON.stringify(err)
-          })
-        } 
-      });
-    }  
+      }); 
   },
   pay(ev) {
     var plateNumber = this.data.plateNumbers;

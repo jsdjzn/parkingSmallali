@@ -14,6 +14,20 @@ App({
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
   onLaunch: function () {
+    my.getSetting({
+      success: (res) => {
+        if(res.authSetting.userInfo){
+          my.navigateTo({
+            url: '../platenumbers/platenumbers' 
+          });
+        } else {
+          my.navigateTo({
+            url: '../addplatenumbers/addplatenumbers' 
+          });
+        }    
+  }
+})
+ /*
     my.getAuthCode({
       scopes: 'auth_user',
       success: ({ authCode }) => {
@@ -48,5 +62,6 @@ App({
           });
       },
     });
+    */
   },
 });

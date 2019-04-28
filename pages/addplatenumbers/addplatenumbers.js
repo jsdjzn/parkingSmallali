@@ -38,6 +38,7 @@ Page({
     eightValue:'',
   },
 
+/*
   onLoad: function (options) {
     //生命周期函数--    
     app.userInfoReadyCallback = res => {
@@ -79,6 +80,7 @@ Page({
       }
     }
   },
+  */
   onShow:function(){
     
   },
@@ -214,14 +216,16 @@ Page({
         });
       }
     },
+
+  //点击页面隐藏键盘事件
   tapSpecBtn: function (e) {
-    //点击页面隐藏键盘事件
         this.setData({
           isKeyboard: false
         })
     },
+
+  //键盘事件
   tapKeyboard(e) {
-    //键盘事件
     var that = this;
     //获取键盘点击的内容，并将内容赋值到textarea框中
     var tapIndex = e.target.dataset.index;
@@ -413,42 +417,79 @@ Page({
           title: '车牌号不正确' ,
         });
       } else {
-        var encStr = ""
-        var carownerId = app.globalData.carOwnerId;
-        var orgId = app.globalData.orgId;
-        var jsonData = JSON.stringify({ carownerId: carownerId, orgId: orgId, plateNumber: plateNumber})
-        var encrypt_rsa = new RSA.RSAKey();
-        encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
-        encStr = encrypt_rsa.encrypt(jsonData)
-        encStr = RSA.hex2b64(encStr);
-        my.request({
-          url: app.globalData.url+'djalipay/addPlateNumbers',
-            method: 'POST',
-            header:{
-              'content-type': 'application/json'
-            },
-            dataType: 'json',
-            data:{requestData: encStr},//获取输入的内容
-          success: (res) => {
-            if(res.data.code === 500){
-                my.alert({
-                title: "错误信息",
-                content: res.data.msg
+        my.getAuthCode({
+          scopes: 'auth_user',
+          success: ({ authCode }) => {
+            var encStr = ""
+            var authCode = authCode;
+            var jsonData = JSON.stringify({ authCode: authCode})
+            var encrypt_rsa = new RSA.RSAKey();
+            encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+            encStr = encrypt_rsa.encrypt(jsonData)
+            encStr = RSA.hex2b64(encStr);
+            my.request({
+              url: app.globalData.url+'djalipay/getAuthorization',
+              method: 'POST',
+              header:{
+                'content-type': 'application/json'
+              },
+              dataType: 'json',
+              data:{requestData: encStr},
+              success: (res) => {
+                if(res.data.code === 500){
+                  my.alert({
+                  title: "错误信息",
+                  content: res.data.msg
                 })
-              }else {
-                my.navigateTo({
-                  url: '../platenumbers/platenumbers' 
-                });
-              }
+                }else{
+                  app.globalData.carOwnerId = res.data.carOwnerId,
+                  app.globalData.userId = res.data.userId;
+                  var encStr = "";
+                  var carownerId = app.globalData.carOwnerId;
+                  var orgId = app.globalData.orgId;
+                  var jsonData = JSON.stringify({ carownerId: carownerId, orgId: orgId, plateNumber: plateNumber})
+                  var encrypt_rsa = new RSA.RSAKey();
+                  encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+                  encStr = encrypt_rsa.encrypt(jsonData)
+                  encStr = RSA.hex2b64(encStr);
+                  my.request({
+                    url: app.globalData.url+'djalipay/addPlateNumbers',
+                    method: 'POST',
+                    header:{
+                      'content-type': 'application/json'
+                    },
+                    dataType: 'json',
+                    data:{requestData: encStr},//获取输入的内容
+                    success: (res) => {
+                      if(res.data.code === 500){
+                        my.alert({
+                          title: "错误信息",
+                          content: res.data.msg
+                        })
+                      }else {
+                        my.navigateTo({
+                          url: '../platenumbers/platenumbers' 
+                        });
+                      }
+                    },
+                    fail: (err) => {
+                      my.alert({
+                        title: "错误信息",
+                        content: JSON.stringify(err)
+                      })
+                    } 
+                  });     
+                }         
+              },
+              fail: (err) => {
+                my.alert({
+                  title: "错误信息",
+                  content: JSON.stringify(err)
+                })
+              }  
+            });
           },
-          fail: (err) => {
-            my.alert({
-              title: "错误信息",
-              content: JSON.stringify(err)
-            })
-      } 
-    });
-  }
+      });     
+    }
   },
-
 })
