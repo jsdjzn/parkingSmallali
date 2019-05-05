@@ -37,8 +37,7 @@ Page({
               } else {                
                 this.setData({
                   receipt:res.data.list
-                });
-                
+                });           
               }
             },
             fail: (err) => {
