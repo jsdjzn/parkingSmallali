@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    receipt:''
+    receipt:'',
+    isTrue:false
   },
 
   /**
@@ -34,7 +35,12 @@ Page({
                   title: "错误信息",
                   content: res.data.msg
                 })
-              } else {                
+              } else { 
+                if (res.data.list.length === 0) {
+                  this.setData({
+                    isTrue:true
+                  });
+                }            
                 this.setData({
                   receipt:res.data.list
                 });           

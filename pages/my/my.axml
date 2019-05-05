@@ -1,3 +1,6 @@
+    <view a:if="{{isTrue}}" class="isdata">
+      无数据
+    </view>
     <block a:for="{{receipt}}">
     <view class="order">
       <text class="order-text">收款单号：{{item.receiptNumber}}</text>

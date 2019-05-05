@@ -1,3 +1,7 @@
+.isdata{
+  font-size: 64rpx;
+  text-align: center;
+}
 .order{
     background-color: white;
      margin-top: 20rpx;
