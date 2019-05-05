@@ -15,7 +15,6 @@
       </block>
     </view>
     <view class='content_pay'>
-        <button class='pay_btn' type="primary" onTap="navigateTo">开通免密支付</button>
         <button class="add_btn" type="primary" onTap="navigateToaddPn">添加车辆</button>
         <button class="query_btn" type="primary" onTap="query">查询缴费记录</button>
         <button class="cust_btn" type="primary" onTap="customerservice">客服</button>
