@@ -1,3 +1,7 @@
 {
-  "defaultTitle": "客服"
+  "defaultTitle": "客服",
+  "usingComponents": {
+    "list":"mini-antui/es/list/index",
+    "list-item":"mini-antui/es/list/list-item/index"
+  }
 }
