@@ -34,13 +34,10 @@ Page({
                   title: "错误信息",
                   content: res.data.msg
                 })
-              } else {
-                console.log("缴费："+JSON.stringfy(res));
-                /*
+              } else {                         
                 this.setData({
                   receipt:res.data.list
-                });
-                */
+                });    
               }
             },
             fail: (err) => {
