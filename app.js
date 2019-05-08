@@ -13,27 +13,13 @@ App({
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
-  onLaunch: function () {
-    my.getSetting({
-      success: (res) => {
-        if(res.authSetting.userInfo){
-          my.navigateTo({
-            url: '../platenumbers/platenumbers' 
-          });
-        } else {
-          my.navigateTo({
-            url: '../addplatenumbers/addplatenumbers' 
-          });
-        }    
-  }
-})
- /*
+  onLaunch: function () { 
     my.getAuthCode({
-      scopes: 'auth_user',
+      scopes: 'auth_base',
       success: ({ authCode }) => {
         my.request({
             url: this.globalData.url+'djalipay/getAuthorization',
-            method: 'GET',
+            method: 'POST',
             header:{
               'content-type': 'application/json'
             },
@@ -47,10 +33,10 @@ App({
                 })
               }else{
                 this.globalData.carOwnerId = res.data.carOwnerId,
-              this.globalData.userId = res.data.userId   
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }   
+                this.globalData.userId = res.data.userId   
+                if (this.userInfoReadyCallback) {
+                  this.userInfoReadyCallback(res)
+                }   
               }         
             },
             fail: (err) => {
@@ -61,7 +47,6 @@ App({
               }  
           });
       },
-    });
-    */
+    }); 
   },
 });

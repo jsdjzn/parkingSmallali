@@ -36,6 +36,7 @@ Page({
                   content: res.data.msg
                 })
               } else { 
+                console.log(res.data.list)
                 if (res.data.list.length === 0) {
                   this.setData({
                     isTrue:true

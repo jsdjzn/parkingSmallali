@@ -1,10 +1,10 @@
 {
   "pages":[  
     "pages/addplatenumbers/addplatenumbers", 
-     "pages/customerservice/customerservice",                   
+    "pages/customerservice/customerservice",                   
     "pages/platenumbers/platenumbers",
     "pages/about/about",             
-     "pages/my/my", 
+    "pages/my/my", 
     "pages/nokeypay/nokeypay",
     "pages/logs/logs",
     "pages/findthecar/findthecar",

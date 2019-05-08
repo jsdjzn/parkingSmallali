@@ -8,7 +8,7 @@
     </view>
     <view class="message">
       <view>
-      <text class="platenumbers">车牌：{{item.plateNumbers}}</text>
+      <text class="platenumbers">车牌：{{item.plateNumber}}</text>
       <text class="time">{{item.time}}</text>
       </view>
       <view class="paytype">

@@ -94,14 +94,7 @@ Page({
           dataType: 'json',
           data:{requestData: encStr},//获取输入的内容
           success: (res) => {
-            if(res.data.code === 500){
-              my.alert({
-                title: "错误信息",
-                content: res.data.msg
-              })
-            } else {
                 app.globalData.receiptNumber = res.data.receiptNumber      
-            }
           },
           fail: (err) => {
             my.alert({
@@ -168,10 +161,10 @@ Page({
         var jsonData = JSON.stringify({ outTradeNo: outTradeNo, buyer_id: buyer_id})
         var encrypt_rsa = new RSA.RSAKey();
         encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
-        encStr = encrypt_rsa.encrypt(jsonData)
+        encStr = encrypt_rsa.encrypt(jsonData);
         encStr = RSA.hex2b64(encStr);
         my.request({
-        url: app.globalData.url+'alipay/getCode',
+        url: app.globalData.url+'alipay/createtrade',
         method: 'POST',
         header:{
             'content-type': 'application/json'
@@ -200,26 +193,6 @@ Page({
           my.hideLoading();
         }
       });
-        /*my.httpRequest({
-        url: app.globalData.url+'alipay/createtrade',//须加httpRequest域白名单
-        method: 'POST',
-        data: {
-        outTradeNo: app.globalData.receiptNumber, 
-        buyer_id: app.globalData.userId },
-        dataType: 'json',
-        success: function(res) {
-          that.tradePay(res.data.trade_no);
-        },
-        fail: function(res) {
-          my.alert({
-              title: "错误信息",
-              content: JSON.stringify(res)
-            })
-        },
-        complete: function(res) {
-          my.hideLoading();
-        }
-      });*/
       }  
     },
     tradePay: function(tradeNO){
