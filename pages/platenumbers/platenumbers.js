@@ -108,12 +108,7 @@ Page({
       confirmButtonText:"确认",
       cancelButtonText:"取消",
       success: (result) => {
-        /*if(result.data.code === 500){
-                my.alert({
-                title: "错误信息",
-                content: res.data.msg
-                })
-          }else */ if(result.confirm){
+        if(result.confirm){
           var encStr = ""
           var input_rsa = ev.currentTarget.dataset.name;
           var jsonData = JSON.stringify({ plateNumber: input_rsa})

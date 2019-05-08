@@ -7,7 +7,7 @@
       <block a:for="{{plateNumbers}}">
         <view class='content_numbers_view'>
              <image class='img' src='{{carnumber}}'></image>
-             <image src="../../img/删除.png" class="delimg" data-name="{{item.plateNumber}}" onTap="delPlateNumber"/>
+             <image src="../../img/del.png" class="delimg" data-name="{{item.plateNumber}}" onTap="delPlateNumber"/>
 			      <view class='numbers' data-name="{{item.plateNumber}}" onTap="pay">
               <text id="paynumber">{{item.plateNumber}}</text>
             </view>
