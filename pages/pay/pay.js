@@ -66,43 +66,6 @@ Page({
             })
           }
         }
-        var encStr = ""
-        var orgId=app.globalData.orgId;
-        var ownerId=app.globalData.carOwnerId;
-        var plateNumber=app.globalData.plateNumbers;
-        var carId=app.globalData.carId;
-        var payType='1';
-        var payResult='1';
-        var payMoney=this.data.count;
-        var jsonData = JSON.stringify({ orgId: orgId, 
-                                        ownerId: ownerId,
-                                        plateNumber: plateNumber,
-                                        carId: carId,
-                                        payType: payType,
-                                        payResult: payResult,
-                                        payMoney: payMoney})
-        var encrypt_rsa = new RSA.RSAKey();
-        encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
-        encStr = encrypt_rsa.encrypt(jsonData)
-        encStr = RSA.hex2b64(encStr);
-        my.request({
-          url: app.globalData.url+'payment/addReceipt',
-          method: 'POST',
-          header:{
-            'content-type': 'application/json'
-          },
-          dataType: 'json',
-          data:{requestData: encStr},//获取输入的内容
-          success: (res) => {
-                app.globalData.receiptNumber = res.data.receiptNumber      
-          },
-          fail: (err) => {
-            my.alert({
-              title: "错误信息",
-              content: JSON.stringify(err)
-            })
-          } 
-        });
       },
       fail: (err) => {
         my.alert({
@@ -148,61 +111,97 @@ Page({
 
   },
     pay() {
-      var that = this;
-      if(that.data.count == 0){
-         my.alert({
-            title:"免费",
-            content:"本次停车无需支付费用！"
-          })
-      }else{
-        var encStr = ""
-        var outTradeNo= app.globalData.receiptNumber;
-        var buyer_id= app.globalData.userId;
-        var jsonData = JSON.stringify({ outTradeNo: outTradeNo, buyer_id: buyer_id})
+       var encStr = ""
+        var orgId=app.globalData.orgId;
+        var ownerId=app.globalData.carOwnerId;
+        var plateNumber=app.globalData.plateNumbers;
+        var carId=app.globalData.carId;
+        var payType='1';
+        var payResult='1';
+        var payMoney=this.data.count;
+        var jsonData = JSON.stringify({ orgId: orgId, 
+                                        ownerId: ownerId,
+                                        plateNumber: plateNumber,
+                                        carId: carId,
+                                        payType: payType,
+                                        payResult: payResult,
+                                        payMoney: payMoney})
         var encrypt_rsa = new RSA.RSAKey();
         encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
-        encStr = encrypt_rsa.encrypt(jsonData);
+        encStr = encrypt_rsa.encrypt(jsonData)
         encStr = RSA.hex2b64(encStr);
         my.request({
-        url: app.globalData.url+'alipay/createtrade',
-        method: 'POST',
-        header:{
+          url: app.globalData.url+'payment/addReceipt',
+          method: 'POST',
+          header:{
             'content-type': 'application/json'
           },
-        data: {
-          requestData: encStr
-         },
-         dataType: 'json',
-        success: function(res) {
-          if(res.data.code === 500){
-              my.alert({
-                title: "错误信息",
-                content: res.data.msg
-              })
-          } else {
-            that.tradePay(res.data.qr_code);
-          }
-        },
-        fail: function(res) {
-          my.alert({
+          dataType: 'json',
+          data:{requestData: encStr},//获取输入的内容
+          success: (res) => {
+                app.globalData.receiptNumber = res.data.receiptNumber      
+                var that = this;
+                if(that.data.count == 0){
+                  my.alert({
+                      title:"免费",
+                      content:"本次停车无需支付费用！"
+                  })
+                  }else{
+                    var encStr = ""
+                    var outTradeNo= app.globalData.receiptNumber;
+                    var buyer_id= app.globalData.userId;
+                    var jsonData = JSON.stringify({ outTradeNo: outTradeNo, buyer_id: buyer_id})
+                    var encrypt_rsa = new RSA.RSAKey();
+                    encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey);
+                    encStr = encrypt_rsa.encrypt(jsonData);
+                    encStr = RSA.hex2b64(encStr);
+                    my.request({
+                      url: app.globalData.url+'alipay/createtrade',
+                      method: 'POST',
+                      header:{
+                        'content-type': 'application/json'
+                      },
+                      data: {
+                        requestData: encStr
+                      },
+                      dataType: 'json',
+                      success: function(res) {
+                        if(res.data.code === 500){
+                          my.alert({
+                            title: "错误信息",
+                            content: res.data.msg
+                          })
+                        } else {
+                          that.tradePay(res.data.trade_no);
+                        }
+                      },
+                      fail: function(res) {
+                        my.alert({
+                          title: "错误信息",
+                          content: JSON.stringify(res)
+                        })
+                      },
+                    });
+                  }
+          },
+          fail: (err) => {
+            my.alert({
               title: "错误信息",
-              content: JSON.stringify(res)
+              content: JSON.stringify(err)
             })
-        },
-        complete: function(res) {
-          my.hideLoading();
-        }
-      });
-      }  
+          } 
+        });  
     },
     tradePay: function(tradeNO){
       my.tradePay({
         tradeNO: tradeNO,  
         success: function(res) {
-          my.alert(res.resultCode);
+          my.navigateTo({
+            url: '../my/my' 
+          });
         },
         fail: function(res) {
-            my.alert(res.resultCode);
+            my.alert("支付失败请重试！");
           },
       });
   }
