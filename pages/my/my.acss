@@ -1,39 +1,59 @@
+page{
+ font-family: '微软雅黑';
+ color: dimgray;
+}
 .isdata{
   font-size: 64rpx;
   text-align: center;
 }
 .order{
     background-color: white;
-     margin-top: 20rpx;
+    margin-top: 30rpx;
+    align-items: center;
+    height: 80rpx;
 }
 .order-text{
+ margin-left: 30rpx;
  font-size: 28rpx;
+ line-height: 80rpx;
+
 }
-.status{
+.status1{
   color: dodgerblue;
   font-size: 28rpx;
-  float:right;
+  line-height: 80rpx;
+  margin-left: 60rpx;
+}
+.status2{
+  color: red;
+  font-size: 28rpx;
+  line-height: 80rpx;
+  margin-left: 40rpx;
 }
 .message{
   background-color: white;
-   margin-top: 5rpx;
+  margin-top: 5rpx;
+  height: 200rpx;
 }
 .platenumbers{
-  text-align: left;
+  margin-left: 30rpx;
   font-size: 30rpx;
+  line-height: 75rpx
 }
 .time{
-  float: right;
-  
+  line-height: 75rpx;
+  margin-left: 180rpx;
+  color: darkgray;
 }
 .paytype{
-  text-align: left;
+  margin-left: 30rpx;
   font-size: 30rpx;
    margin-top: 10rpx;
 }
 .paymoney{
- text-align: right;
+ margin-left: 630rpx;
  font-size: 36rpx;
  font-weight:bold;
-  margin-top: 10rpx;
+ margin-top: 10rpx;
+ color: black;
 }

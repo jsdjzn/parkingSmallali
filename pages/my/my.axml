@@ -1,18 +1,22 @@
     <view a:if="{{isTrue}}" class="isdata">
-      无数据
+      无缴费记录
     </view>
     <block a:for="{{receipt}}">
     <view class="order">
-      <text class="order-text">收款单号：{{item.receiptNumber}}</text>
-      <text class="status">支付结果：{{item.payResult}}</text>
+      <text class="order-text">{{receiptItem1}}{{item.receiptNumber}}</text>
+      <text a:if="{{item.payResult == 0}}" class="status1">支付结果：成功</text>
+      <text a:elif="{{item.payResult == 1}}" class="status2">支付结果：待支付</text>
+      <text a:elif="{{item.payResult == -1}}" class="status2">支付结果：失败</text>
     </view>
     <view class="message">
       <view>
       <text class="platenumbers">车牌：{{item.plateNumber}}</text>
-      <text class="time">{{item.time}}</text>
+      <text class="time">{{item.payTime}}</text>
       </view>
       <view class="paytype">
-        <text >支付类型：{{item.payType}}</text>
+        <text a:if="{{item.payType == 1}}" >支付类型：支付宝</text>
+        <text a:elif="{{item.payType == 2}}" >支付类型：微信</text>
+        <text a:elif="{{item.payType == 3}}" >支付类型：现金</text>
       </view>
       <view class="paymoney">
         <text >￥{{item.payMoney}}</text>

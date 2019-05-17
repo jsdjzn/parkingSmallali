@@ -10,9 +10,11 @@
   color: #169bd5
 }
 .park{
-  background-color:white
+  background-color:white;
+  height:250rpx;
 }
 .parktime{
+  line-height: 100rpx;
   text-align: center;
   margin-top: 20rpx;
   font-size: 33rpx;

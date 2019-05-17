@@ -6,7 +6,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    receipt:'',
+    receiptItem1:'收款单号：',
+    receipt:[{receiptNumber:201903123161171334,
+              payResult:-1,
+              plateNumber:'苏A0001',
+              time:'2019-04-01 16:13:15',
+              payType:'1',
+              payMoney:'5'},
+              {receiptNumber:201903123161171334,
+              payResult:0,
+              plateNumber:'苏A0001',
+              time:'2019-04-01 16:13:15',
+              payType:'2',
+              payMoney:'5'}],
     isTrue:false
   },
 
@@ -41,7 +53,7 @@ Page({
                   this.setData({
                     isTrue:true
                   });
-                }            
+                }         
                 this.setData({
                   receipt:res.data.list
                 });           
